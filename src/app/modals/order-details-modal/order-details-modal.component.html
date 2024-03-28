@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Detalii Comandă</h2>
+<div mat-dialog-content>
+  <p>ID Comandă: {{ order.id }}</p>
+  <p>Nr. Comandă: {{ order.orderNumber }}</p>
+  <p>Comanda plasata in data de: {{ order.orderDate }}</p>
+  <p>Status: {{ order.status }}</p>
+</div>
+<div *ngIf="products && products.length > 0">
+  <h3 class="ms-2">Produse</h3>
+  <ul class="ms-2">
+    <li
+      class="hover:text-400 transition-duration-150 cursor-pointer"
+      *ngFor="let product of products"
+      (click)="showProductDetails(product.productId)"
+    >
+      {{ product.name }} - Cantitate: {{ product.quantity }} = Bucati:
+      {{ product.quantity * 8 }}
+    </li>
+  </ul>
+</div>
+<div *ngIf="!products || products.length === 0">
+  <p>Nu există produse în această comandă.</p>
+</div>
+
+<div
+  class="d-flex align-items-center justify-content-center"
+  mat-dialog-actions
+>
+  <button class="btn btn-dark" mat-button mat-dialog-close>Închide</button>
+</div>

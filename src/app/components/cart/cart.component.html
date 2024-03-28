@@ -1,0 +1,55 @@
+<div class="container my-3">
+  <div class="d-flex justify-content-between">
+    <div>
+      <h2>Your Cart</h2>
+      <div *ngIf="items.length === 0">No items in the cart.</div>
+    </div>
+
+    <div *ngIf="items.length > 0">
+      <button (click)="finalizeazaComanda()" class="btn btn-dark">
+        Plaseaza comanda
+      </button>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of items">
+      <div class="row align-items-center">
+        <div class="col-md-2">
+          <img
+            src="{{ item.imageUrl }}"
+            alt="{{ item.name }}"
+            class="img-fluid"
+          />
+        </div>
+        <div class="col-md-3">
+          <h5>{{ item.name }}</h5>
+        </div>
+        <div class="col-md-2">
+          <p>{{ item.description }} {{ item.productCod }}</p>
+        </div>
+
+        <div class="col-md-2">
+          <p>Cantitate: {{ getProductQuantity(item.id) }}</p>
+          <p>Bucati: {{ getProductQuantity(item.id) * 8 }}</p>
+        </div>
+
+        <div class="col-md-1">
+          <button (click)="decreaseQuantity(item)" class="btn btn-info">
+            -
+          </button>
+        </div>
+        <div class="col-md-1">
+          <button (click)="increaseQuantity(item)" class="btn btn-info">
+            +
+          </button>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-danger" (click)="removeFromCart(item)">
+            Remove
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

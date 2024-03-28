@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>Editare produs</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="editProductForm" (ngSubmit)="saveModal()">
+    <mat-dialog-content class="mat-typography">
+      <div>
+        <label>* Nume Produs:</label>
+        <input class="form-control" formControlName="nume" type="text" />
+      </div>
+      <div>
+        <label>* Descriere:</label>
+        <input class="form-control" formControlName="descriere" type="text" />
+      </div>
+      <div>
+        <label>* Nume POE:</label>
+        <input class="form-control" formControlName="numePoe" type="text" />
+      </div>
+      <div>
+        <label>* Cod Produs:</label>
+        <input class="form-control" formControlName="cod" type="text" />
+      </div>
+      <div>
+        <label>* Stoc:</label>
+        <input class="form-control" formControlName="stoc" type="text" />
+      </div>
+      <div>
+        <label>* Categorie:</label>
+        <select class="form-control" formControlName="categorie">
+          <option
+            *ngFor="let category of categoriesService.getCategories()"
+            [value]="category"
+          >
+            {{ category }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>Imagine:</label>
+        <div>
+          <img
+            [src]="editProductForm.value.imagine"
+            alt="Product Image"
+            class="img-fluid"
+            style="max-width: 100px; height: auto"
+          />
+        </div>
+        <label>Încarcă o nouă imagine:</label>
+        <input
+          class="form-control"
+          type="file"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+    </mat-dialog-content>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="closeModal()" class="btn btn-danger">Anulează</button>
+  <button
+    (click)="saveModal()"
+    class="btn btn-dark ms-2"
+    [mat-dialog-close]="product"
+    [disabled]="!editProductForm.valid"
+  >
+    Salvează
+  </button>
+</mat-dialog-actions>

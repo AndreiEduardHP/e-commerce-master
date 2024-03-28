@@ -1,0 +1,129 @@
+<div class="container mt-5">
+  <h2>Creează un cont nou</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="email" class="form-label">Adresa de Email *</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        [(ngModel)]="user.email"
+        name="email"
+        required
+        email
+        #emailField="ngModel"
+      />
+      <div
+        *ngIf="emailField.errors?.['email'] && emailField.dirty"
+        class="text-danger"
+      >
+        Te rog introdu o adresă de email validă.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="firstName" class="form-label">Prenume *</label>
+      <input
+        class="form-control"
+        id="firstName"
+        [(ngModel)]="user.firstName"
+        name="firstName"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Nume *</label>
+      <input
+        class="form-control"
+        id="lastName"
+        [(ngModel)]="user.lastName"
+        name="lastName"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="username" class="form-label">User Name *</label>
+      <input
+        class="form-control"
+        id="username"
+        [(ngModel)]="user.username"
+        name="username"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label">Numar de telefon *</label>
+      <input
+        class="form-control"
+        id="phoneNumber"
+        [(ngModel)]="user.phoneNumber"
+        name="phoneNumber"
+        required
+        pattern="[0-9]*"
+        #phoneNumberField="ngModel"
+      />
+      <div
+        *ngIf="phoneNumberField.errors?.['pattern'] && phoneNumberField.dirty"
+        class="text-danger"
+      >
+        Te rog introdu un număr de telefon valid (numai cifre).
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="rol" class="form-label">Selectează Rolul *</label>
+      <select
+        class="form-select"
+        id="rol"
+        [(ngModel)]="user.rol"
+        name="rol"
+        required
+      >
+        <option value="">Selectează un rol</option>
+        <option value="client">Client</option>
+        <option value="admin">Administrator</option>
+        <option value="furnizor">Furnizor</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="company" class="form-label">Companie *</label>
+      <input
+        type="text"
+        class="form-control"
+        id="company"
+        [(ngModel)]="company.companyName"
+        name="companyName"
+        placeholder="AUTOMOBILE DACIA"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="cui" class="form-label">Cod unic (CUI) *</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cui"
+        [(ngModel)]="company.cui"
+        name="cui"
+        placeholder="RO1234567"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="registrationNumber" class="form-label"
+        >Numar de inregistrare *</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="registrationNumber"
+        [(ngModel)]="company.registrationNumber"
+        name="registrationNumber"
+        placeholder="J03/1234/1991"
+        required
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Creează Cont</button>
+  </form>
+</div>

@@ -1,0 +1,77 @@
+<div style="display: flex; flex-direction: column; min-height: 100vh">
+  <app-navbar></app-navbar>
+  <div style="flex: 1">
+    <div *ngIf="currentUser; else notLoggedIn">
+      <div class="sticky-top">
+        <div
+          style="
+            padding-left: 20px;
+            padding-bottom: 10px;
+            font-size: 24px;
+            padding-top: 10px;
+            color: white;
+            border-top: 1px solid white;
+          "
+          class="surface-900"
+        >
+          {{ greetingMessage }},
+          {{ currentUser.loggedUser.lastName }}
+          {{ currentUser.loggedUser.firstName }}!
+        </div>
+        <div class="administrarePanel">
+          <button
+            *ngIf="currentUser.loggedUser.rol !== 'furnizor'"
+            class="btn btn-dark"
+            (click)="changeContent('istoric')"
+          >
+            Istoric comenzi
+          </button>
+
+          <button
+            *ngIf="currentUser.loggedUser.rol === 'furnizor'"
+            class="btn btn-dark"
+            (click)="changeContent('clienti')"
+          >
+            Comenzi Clienti
+          </button>
+          <button
+            *ngIf="currentUser.loggedUser.rol === 'furnizor'"
+            class="btn btn-dark"
+            (click)="changeContent('myProducts')"
+          >
+            Produsele mele
+          </button>
+          <!-- <button class="btn btn-dark" (click)="changeContent('cart')">
+            Comenzi
+          </button> -->
+          <button
+            *ngIf="currentUser.loggedUser.rol !== 'furnizor'"
+            class="btn btn-dark"
+            (click)="changeContent('produse')"
+          >
+            Produse
+          </button>
+          <button class="btn btn-dark" (click)="changeContent('administrare')">
+            Administrare
+          </button>
+          <button
+            *ngIf="currentUser.loggedUser.rol === 'furnizor'"
+            class="btn btn-dark"
+            (click)="changeContent('adaugaProdus')"
+          >
+            Adauga un produs nou!
+          </button>
+        </div>
+      </div>
+      <div *ngIf="showAdditionalDiv" style="padding: 20px">
+        <ng-container *ngComponentOutlet="selectedComponent"></ng-container>
+      </div>
+    </div>
+
+    <ng-template #notLoggedIn>
+      <h1>Please log in.</h1>
+    </ng-template>
+  </div>
+
+  <app-rights></app-rights>
+</div>

@@ -1,0 +1,95 @@
+<div
+  class="surface-900 lg:px-8 flex justify-content-between align-items-center"
+>
+  <div
+    style="
+      flex-direction: row;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    "
+    (click)="navigate()"
+  >
+    <logo width="70" height="70"></logo>
+    <div style="color: white; padding-left: 25px; font-size: 24px">
+      AutomotivePack
+    </div>
+  </div>
+  <div style="display: flex">
+    <button class="btn" type="button" aria-expanded="false" *ngIf="isLoggedIn">
+      <div class="d-flex align-items-center">
+        <mat-icon
+          (click)="goToPersonalInfo()"
+          class="hover:text-400 transition-duration-150"
+          style="color: white; font-size: 24px"
+          >account_circle</mat-icon
+        >
+        <div
+          (click)="goToPersonalInfo()"
+          class="hover:text-400 transition-duration-150"
+          style="font-size: 22px; margin-left: 5px; color: white"
+        >
+          {{ currentUser?.loggedUser?.firstName }}
+          {{ currentUser?.loggedUser?.lastName }}
+        </div>
+      </div>
+    </button>
+    <div class="dropdown-center d-flex align-items-center">
+      <button
+        class="btn btn-secondary dropdown-toggle d-flex align-items-center"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        *ngIf="!isLoggedIn"
+      >
+        <mat-icon style="color: white; margin-right: 5px">translate</mat-icon>
+        Selecteaza limba
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item" href="#" (click)="switchLang('en')">en</a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" (click)="switchLang('ro')">ro</a>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="btn d-flex align-items-center"
+      type="button"
+      aria-expanded="false"
+      *ngIf="isLoggedIn"
+    >
+      <mat-icon
+        *ngIf="currentUser?.loggedUser?.rol !== 'furnizor'"
+        (click)="goToCart()"
+        class="hover:text-400 transition-duration-150"
+        style="color: white"
+        >shopping_cart</mat-icon
+      >
+    </button>
+    <button
+      class="btn"
+      type="button"
+      aria-expanded="false"
+      *ngIf="isLoggedIn"
+      (click)="logout()"
+    >
+      <div class="d-flex align-items-center">
+        <div
+          class="mr-2 hover:text-400 transition-duration-150"
+          style="color: white; font-size: 22px"
+        >
+          Logout
+        </div>
+        <mat-icon
+          class="hover:text-400 transition-duration-150"
+          style="color: white"
+          >exit_to_app</mat-icon
+        >
+      </div>
+    </button>
+  </div>
+</div>

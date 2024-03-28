@@ -1,0 +1,85 @@
+<h2>Aici poti vedea istoricul comenzilor tale online!</h2>
+<h4 class="mt-2">Istoric comenzi</h4>
+
+<div class="d-flex mt-2">
+  <div style="width: 240px">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterComanda"
+      placeholder="Filtrează după comandă"
+    />
+  </div>
+  <div style="width: 290px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterOrderNumber"
+      placeholder="Filtrează după nr. comandă"
+    />
+  </div>
+  <div style="width: 320px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterDataComanda"
+      placeholder="Filtrează după data comanda"
+    />
+  </div>
+  <div style="width: 240px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterCod"
+      placeholder="Filtrează după Cod BSR"
+    />
+  </div>
+  <div style="width: 300px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterDataReceptie"
+      placeholder="Filtrează după data receptie"
+    />
+  </div>
+
+  <select
+    [(ngModel)]="filterStatus"
+    class="form-select ms-2"
+    style="width: 250px"
+  >
+    <option value="">Toate</option>
+    <option value="Comanda plasata">Comanda plasata</option>
+    <option value="In procesare">In procesare</option>
+    <option value="Trimisa">Trimisa</option>
+    <option value="Livrat">Livrat</option>
+    <option value="Anulat">Anulat</option>
+  </select>
+  <div style="display: flex; justify-content: flex-end" class="ms-2">
+    <button class="btn btn-danger" (click)="exportToCSV()">
+      Export orders
+    </button>
+  </div>
+</div>
+<table class="table mt-3 table-hover">
+  <thead>
+    <tr>
+      <th>Comandă</th>
+      <th>Nr. comandă</th>
+      <th>Data comandă</th>
+      <th>Cod BSR</th>
+      <th>Data recepție</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of filteredOrders" (click)="openDialog(order)">
+      <td>{{ order.id }}</td>
+      <td>{{ order.orderNumber }}</td>
+      <td>{{ order.orderDate }}</td>
+      <td>{{ order.codBSR }}</td>
+      <td>{{ order.receiptDate }}</td>
+      <td>{{ order.status }}</td>
+    </tr>
+  </tbody>
+</table>

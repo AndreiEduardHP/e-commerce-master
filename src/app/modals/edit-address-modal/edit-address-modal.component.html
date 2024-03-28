@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Editare adresă</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="editAddressForm" (ngSubmit)="saveModal()">
+    <mat-dialog-content class="mat-typography">
+      <div>
+        <label>Oras:</label>
+        <input class="form-control" formControlName="city" type="text" />
+      </div>
+      <div>
+        <label>Detalii:</label>
+        <input class="form-control" formControlName="details" type="text" />
+      </div>
+      <div>
+        <label>Număr de contact:</label>
+        <input
+          class="form-control"
+          formControlName="contactPhoneNumber"
+          type="text"
+        />
+      </div>
+    </mat-dialog-content>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="closeModal()" class="btn btn-danger">Anulează</button>
+  <button
+    (click)="saveModal()"
+    class="btn btn-dark ms-2"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Salvează
+  </button>
+</mat-dialog-actions>

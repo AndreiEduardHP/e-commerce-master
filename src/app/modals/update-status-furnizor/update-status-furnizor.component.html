@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Editare status furnizor</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-dialog-content class="mat-typography">
+    <div>
+      <label>Nume: {{ furnizor.email }}</label>
+    </div>
+    <div>
+      <label>Descriere: {{ formatDate(furnizor.dateAccountCreation) }}</label>
+    </div>
+    <div>
+      <label
+        >Status actual: {{ furnizor.isDisabled ? "Inactiv" : "Activ" }}</label
+      >
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex justify-content-between">
+    <button (click)="toggleStatus()" class="btn btn-primary">
+      Schimbă Status in {{ furnizor.isDisabled ? "Activ" : "Inactiv" }}
+    </button>
+    <button (click)="closeModal()" class="btn btn-danger">Anulează</button>
+  </mat-dialog-actions>
+</mat-dialog-content>

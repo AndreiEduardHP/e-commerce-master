@@ -1,0 +1,54 @@
+<div
+  class="mt-2 mr-2 cursor-pointer"
+  style="display: flex; justify-content: flex-end"
+  (click)="closeModal()"
+>
+  <mat-icon>close</mat-icon>
+</div>
+<form [formGroup]="adressForm" (ngSubmit)="onSubmit()" class="container mt-5">
+  <div class="mb-3">
+    <label for="city" class="form-label">City:</label>
+    <input
+      type="text"
+      id="city"
+      placeholder="Oras"
+      class="form-control"
+      formControlName="city"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="details" class="form-label">Details:</label>
+    <input
+      type="text"
+      id="details"
+      placeholder="Strada Nicolae Milescu nr.49 bl.PN10 sc.A ap.7"
+      class="form-control"
+      formControlName="details"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="contactPhoneNumber" class="form-label"
+      >Contact Phone Number:</label
+    >
+    <input
+      id="contactPhoneNumber"
+      placeholder="Phone number"
+      class="form-control"
+      formControlName="contactPhoneNumber"
+      required
+    />
+  </div>
+  <div class="d-flex justify-content-center">
+    <button
+      type="submit"
+      class="btn btn-primary mt-2 mb-2"
+      [disabled]="!adressForm.valid"
+    >
+      Add Address
+    </button>
+  </div>
+</form>

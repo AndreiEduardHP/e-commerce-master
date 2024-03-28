@@ -1,0 +1,21 @@
+<div class="containerNews">
+  <div style="padding-left: 40px; font-size: 24px">
+    Aboneaza-te la Newsletter
+  </div>
+  <form [formGroup]="newsLetterForm" (ngSubmit)="onSubmit()">
+    <div style="display: flex; margin-right: 20px">
+      <input
+        style="margin-right: 20px; width: 300px"
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+        id="email-newsletter"
+        class="form-control"
+        [class.is-invalid]="
+          f['email'].invalid && f['email'].dirty && f['email'].value.length > 0
+        "
+      />
+      <button type="submit" class="btn btn-danger">Aboneaza-te</button>
+    </div>
+  </form>
+</div>

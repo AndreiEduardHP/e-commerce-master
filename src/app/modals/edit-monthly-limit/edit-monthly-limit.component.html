@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Editare adresă</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="editMonthlyLimit" (ngSubmit)="saveModal()">
+    <mat-dialog-content class="mat-typography">
+      <div>
+        <label>Limita actuala:</label>
+        <input class="form-control" formControlName="limit" type="text" />
+      </div>
+    </mat-dialog-content>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button (click)="closeModal()" class="btn btn-danger">Anulează</button>
+  <button
+    (click)="saveModal()"
+    class="btn btn-dark ms-2"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Salvează
+  </button>
+</mat-dialog-actions>

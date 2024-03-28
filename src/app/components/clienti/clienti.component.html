@@ -1,0 +1,111 @@
+<div class="d-flex mt-2">
+  <div style="width: 240px">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterOrderNumber"
+      placeholder="Filtrează după id comandă"
+    />
+  </div>
+  <div style="width: 290px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterStatus"
+      placeholder="Filtrează după status comandă"
+    />
+  </div>
+  <div style="width: 320px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterDataComanda"
+      placeholder="Filtrează după data comanda"
+    />
+  </div>
+  <div style="width: 240px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterEmailClient"
+      placeholder="Filtrează după email client"
+    />
+  </div>
+  <div style="width: 300px" class="ms-2">
+    <input
+      class="form-control"
+      type="text"
+      [(ngModel)]="filterAdresa"
+      placeholder="Filtrează după adresa (oras)"
+    />
+  </div>
+  <div style="width: 300px" class="ms-2">
+    <button (click)="downloadCsv()" class="btn btn-danger">
+      Exporta comenzile
+    </button>
+  </div>
+</div>
+<div class="mt-3">
+  <table class="table">
+    <thead class="">
+      <tr>
+        <th>ID Comanda</th>
+        <th>Status</th>
+        <th>Companie</th>
+        <th>Data</th>
+        <th>Client</th>
+        <th>Email</th>
+        <th>Telefon</th>
+        <th>Adresa</th>
+        <th>Produse</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of filterOrders">
+        <td>{{ order.orderId }}</td>
+        <td>
+          <select
+            class="form-control"
+            [(ngModel)]="order.orderStatus"
+            (change)="changeStatus(order.orderId, order.orderStatus)"
+          >
+            <option value="Comanda plasata">Comanda plasata</option>
+            <option value="In procesare">In procesare</option>
+            <option value="Trimisa">Trimisa</option>
+            <option value="Livrat">Livrat</option>
+            <option value="Anulat">Anulat</option>
+          </select>
+        </td>
+        <td>
+          <div>Nume companie: {{ order.customer.company.companyName }}</div>
+          <div>Cui: {{ order.customer.company.cui }}</div>
+          <div>
+            Numar inregistrare: {{ order.customer.company.registrationNumber }}
+          </div>
+        </td>
+        <td>{{ formatDate(order.orderDate) }}</td>
+        <td>
+          Nume: {{ order.customer.firstName }}
+          {{ order.customer.lastName }}
+        </td>
+        <td class="hover:text-400 transition-duration-150 cursor-pointer">
+          <a href="mailto:{{ order.customer.email }}">{{
+            order.customer.email
+          }}</a>
+        </td>
+        <td>{{ order.customer.phoneNumber }}</td>
+        <td>{{ order.address.details }}, {{ order.address.city }}</td>
+        <td>
+          <li
+            class="hover:text-400 transition-duration-150 cursor-pointer"
+            *ngFor="let product of order.products"
+            (click)="openDialogProductDetails(product.productId)"
+          >
+            {{ product.name }} - Cantitate: {{ product.quantity }} - Bucati:
+            {{ product.quantity * 8 }}
+          </li>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,81 @@
+<h2 class="container">Adauga un nou produs!</h2>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="container mt-5">
+  <div class="mb-3">
+    <label for="name" class="form-label">* Nume produs:</label>
+    <input
+      type="text"
+      id="name"
+      placeholder="Nume produs"
+      class="form-control"
+      formControlName="name"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">* Imagine:</label>
+    <input
+      type="file"
+      id="image"
+      class="form-control"
+      (change)="onImageSelected($event)"
+      accept="image/*"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">* Descriere produs:</label>
+    <textarea
+      id="description"
+      class="form-control"
+      placeholder="Descriere produs"
+      formControlName="description"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="category">* Categorie</label>
+    <select
+      id="category"
+      class="form-control"
+      formControlName="category"
+      required
+    >
+      <option value="" disabled>* Selectează o categorie</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="productCod" class="form-label">* Cod produs:</label>
+    <textarea
+      id="productCod"
+      placeholder="Cod produs"
+      class="form-control"
+      formControlName="productCod"
+    ></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="internalClientCod" class="form-label"
+      >* Internal client cod:</label
+    >
+    <textarea
+      id="internalClientCod"
+      class="form-control"
+      placeholder="Internal Cod"
+      formControlName="internalClientCod"
+    ></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="stoc" class="form-label">* Stoc:</label>
+    <input
+      id="stoc"
+      class="form-control"
+      type="number"
+      placeholder="Stoc"
+      formControlName="stoc"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">
+    Adauga produs
+  </button>
+</form>

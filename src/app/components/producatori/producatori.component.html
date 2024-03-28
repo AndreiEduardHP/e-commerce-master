@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Companie</th>
+        <th>Prenume</th>
+        <th>Nume</th>
+        <th>Email</th>
+        <th>Activ/Inactiv</th>
+        <th>Modifica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let furnizor of furnizori">
+        <td>
+          <div>
+            <strong>Nume companie:</strong> {{ furnizor.company.companyName }}
+          </div>
+          <div><strong>Cui:</strong> {{ furnizor.company.cui }}</div>
+          <div>
+            <strong>Numar inregistrare companie:</strong>
+            {{ furnizor.company.registrationNumber }}
+          </div>
+        </td>
+        <td>{{ furnizor.firstName }}</td>
+        <td>{{ furnizor.lastName }}</td>
+        <td>{{ furnizor.email }}</td>
+        <td>{{ furnizor.isDisabled ? "Inactiv" : "Activ" }}</td>
+        <td (click)="editFurnizorStatus(furnizor)">
+          <mat-icon
+            class="cursor-pointer hover:text-400 transition-duration-150"
+            >edit</mat-icon
+          >
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

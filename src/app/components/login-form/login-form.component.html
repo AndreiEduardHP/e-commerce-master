@@ -1,0 +1,81 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="logoClass">
+      <logo width="150px" height="150px"></logo>
+    </div>
+
+    <div class="widthInput">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+        id="email"
+        class="form-control"
+        [class.is-invalid]="
+          f['email'].invalid && (f['email'].dirty || f['email'].touched)
+        "
+      />
+    </div>
+
+    <div class="widthInput">
+      <label for="password">Parolă: </label>
+      <input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+        id="password"
+        class="form-control"
+        [class.is-invalid]="
+          f['password'].value.length <= 6 &&
+          (f['password'].dirty || f['password'].touched)
+        "
+      />
+    </div>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      "
+    >
+      <div>
+        <div class="form-check ; hover:text-500">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+          />
+          <label
+            class="form-check-label"
+            for="flexCheckDefault"
+            style="cursor: pointer"
+          >
+            Tine-ma minte
+          </label>
+        </div>
+      </div>
+      <div style="text-align: right">
+        <div
+          style="color: rgba(0, 0, 255, 0.86); cursor: pointer"
+          class="hover:text-700 transition-duration-150"
+        >
+          Ai uitat parola?
+        </div>
+        <div
+          (click)="navigate('sign-up-screen')"
+          style="color: rgba(0, 0, 255, 0.86); cursor: pointer"
+          class="hover:text-700 transition-duration-150"
+        >
+          Creaza un cont nou de client
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-dark" style="width: auto">
+      {{ "Login" | translate }}
+    </button>
+  </form>
+</div>

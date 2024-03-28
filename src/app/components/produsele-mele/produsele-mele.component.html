@@ -1,0 +1,55 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id produs</th>
+      <th scope="col">Imagine</th>
+      <th scope="col">Nume Produs</th>
+      <th scope="col">Nume POE</th>
+      <th scope="col">Descriere</th>
+      <th scope="col">Categorie</th>
+      <th scope="col">Cod</th>
+      <th scope="col">Stoc</th>
+      <th scope="col">Disponibilitate</th>
+      <th scope="col">Modifica</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products; let i = index">
+      <th scope="row">{{ product.id }}</th>
+      <td>
+        <img
+          [src]="product.imageUrl"
+          alt="Product Image"
+          class="img-fluid"
+          style="width: 100px; height: auto; border-radius: 10px"
+        />
+      </td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.internalClientCod }}</td>
+      <td>{{ product.description }}</td>
+
+      <td>{{ product.category }}</td>
+      <td>{{ product.productCod }}</td>
+      <td>{{ product.stoc }}</td>
+      <td>
+        <div class="form-check">
+          <input
+            class="form-check-input cursor-pointer"
+            type="checkbox"
+            [(ngModel)]="product.available"
+            (change)="toggleAvailability(product.id, product.available)"
+            id="availableCheck{{ i }}"
+          />
+          <label class="form-check-label">
+            {{
+              product.available ? "Produs disponibil" : "Produs indisponibil"
+            }}
+          </label>
+        </div>
+      </td>
+      <td class="cursor-pointer" (click)="openDialog(product)">
+        <mat-icon>edit</mat-icon>
+      </td>
+    </tr>
+  </tbody>
+</table>

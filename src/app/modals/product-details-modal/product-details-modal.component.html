@@ -1,0 +1,36 @@
+<div *ngIf="product; else loadingTemplate" class="product-details ms-2">
+  <div class="d-flex align-items-center justify-content-between">
+    <h2 class="mt-2">Detalii produs:</h2>
+    <button class="btn mr-2" (click)="closeModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="text-center">
+    <h3>Nume produs:{{ " " }}{{ product.name }}</h3>
+    <h4>Imagine produs:</h4>
+    <img
+      *ngIf="product.imageUrl"
+      [src]="product.imageUrl"
+      width="180px"
+      height="150px"
+      alt="Product image"
+      class="product-image"
+    />
+    <div class="mt-2">
+      <p>ID:{{ " " }} {{ product.id }}</p>
+      <p>Description:{{ " " }}{{ product.description }}</p>
+      <p>Available:{{ " " }}{{ product.available ? "Yes" : "No" }}</p>
+      <p>Category:{{ " " }} {{ product.category }}</p>
+      <p>Created By User ID:{{ " " }} {{ product.createdByUserId }}</p>
+      <p>Cod produs: {{ product.productCod ? product.productCod : "-" }}</p>
+      <p>
+        Cod intern produs:
+        {{ product.internalClientCod ? product.internalClientCod : "-" }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading product details...</p>
+</ng-template>

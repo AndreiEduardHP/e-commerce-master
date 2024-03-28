@@ -1,0 +1,29 @@
+<h2>Administrare!</h2>
+<div>
+  <div
+    *ngIf="currentUser?.loggedUser?.rol !== 'furnizor'"
+    class="btn btn-dark"
+    (click)="showCreazaCont()"
+  >
+    Creaza un cont nou
+  </div>
+  <div
+    *ngIf="currentUser?.loggedUser?.rol !== 'furnizor'"
+    class="btn btn-dark ms-2"
+    (click)="showProducatori()"
+  >
+    Producatori
+  </div>
+  <div class="btn btn-dark ms-2" (click)="showMonthlyLimit()">
+    Seteaza limita lunara
+  </div>
+</div>
+<div *ngIf="creazaCont">
+  <app-sign-up-form></app-sign-up-form>
+</div>
+<div *ngIf="producatori">
+  <app-producatori></app-producatori>
+</div>
+<div *ngIf="monthlyLimit">
+  <app-monthly-limit></app-monthly-limit>
+</div>

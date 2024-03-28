@@ -1,0 +1,40 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 450px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px #ccc;
+  border-radius: 5px;
+}
+
+div {
+  margin-bottom: 10px;
+}
+
+label {
+  margin-right: 10px;
+}
+
+button {
+  align-content: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+.logoClass {
+  margin-top: calc(-50% + 100px);
+}
+.invalid-border {
+  border: 1px solid red;
+}
+.widthInput {
+  width: 410px;
+}
