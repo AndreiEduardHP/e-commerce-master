@@ -46,13 +46,28 @@
             (click)="addToCart(product)"
             class="btn btn-primary"
             style="width: 100%"
+            [disabled]="
+              productLimits[product.id] === getProductQuantity(product.id)
+            "
           >
             {{
               isProductInCart(product.id)
                 ? "Produsul este adaugat in coș"
+                : productCount[product.id] >= productLimits[product.id]
+                ? "Limita atinsa"
                 : "Adaugă în coș"
             }}
           </button>
+          <div
+            class="d-flex align-items-center justify-content-center mt-2"
+            *ngIf="productLimits[product.id]"
+          >
+            <div>
+              <div>Limita: {{ productLimits[product.id] }}</div>
+              <div>Produse cumparate:{{ productCount[product.id] }}</div>
+            </div>
+          </div>
+
           <div
             *ngIf="isProductInCart(product.id)"
             class="align-items-center justify-content-center mt-2"
@@ -72,7 +87,13 @@
               >
                 -
               </button>
-              <button (click)="increaseQuantity(product)" class="btn btn-info">
+              <button
+                (click)="increaseQuantity(product)"
+                class="btn btn-info"
+                [disabled]="
+                  productLimits[product.id] === getProductQuantity(product.id)
+                "
+              >
                 +
               </button>
             </div>

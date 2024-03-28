@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IProduct } from 'src/app/models/IProduct';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { ChangeComponentService } from 'src/app/services/change-component.service';
+import { MonthlyLimitService } from 'src/app/services/monthly-limit.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -19,14 +21,25 @@ export class ProduseComponent implements OnInit {
   searchTerm: string = '';
   selectedCategory: string = '';
   countProduse = 0;
+  currentUserId: number;
+  public productLimits: { [productId: number]: number } = {};
+  public productCount: { [productId: number]: number } = {};
   private cartSubscription: Subscription | undefined;
   constructor(
     private cartService: CartService,
     private productService: ProductService,
     private componentControlService: ChangeComponentService,
     private notificationService: NotificationService,
-    private categoriesService: CategoriesService
-  ) {}
+    private categoriesService: CategoriesService,
+    private monthlyLimitService: MonthlyLimitService,
+    private authService: AuthService
+  ) {
+    if (this.authService.userValue?.loggedUser.id) {
+      this.currentUserId = this.authService.userValue?.loggedUser.id;
+    } else {
+      this.currentUserId = 0;
+    }
+  }
   ngOnInit(): void {
     this.getProducts();
     this.countProduse = this.cartService.getItems().length;
@@ -43,18 +56,37 @@ export class ProduseComponent implements OnInit {
     );
   }
   addToCart(product: IProduct): void {
-    this.cartService.addToCart(product);
-    this.countProduse = this.cartService.getItems().length;
-    this.notificationService.showNotification(
-      `${product.name} a fost adaugat in cos`,
-      'success'
-    );
+    this.monthlyLimitService
+      .getLimitsForUser(this.currentUserId)
+      .subscribe((limits) => {
+        const productLimit = limits.find(
+          (limit) => limit.productId === product.id
+        );
+        if (productLimit) {
+          this.productLimits[product.id] = productLimit.limit;
+          this.productCount[product.id] = productLimit.count;
+        }
+        if (this.productCount[product.id] >= this.productLimits[product.id]) {
+          this.notificationService.showNotification(
+            'Limita a fost atinsa',
+            'error'
+          );
+        } else {
+          this.cartService.addToCart(product);
+          this.notificationService.showNotification(
+            `${product.name} a fost adaugat in cos`,
+            'success'
+          );
+        }
+
+        this.countProduse = this.cartService.getItems().length;
+      });
   }
+
   getProducts(): void {
     this.productService.getProducts().subscribe(
       (data: IProduct[]) => {
         this.products = data;
-        console.log(this.products);
       },
       (error) => {
         console.error('Error fetching products', error);

@@ -8,6 +8,7 @@
       <th>Email Client</th>
       <th>Numar telefon Client</th>
       <th>Modifica limita</th>
+      <th>Sterge limita</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,9 @@
       <td>{{ limit.user.phoneNumber }}</td>
       <td class="cursor-pointer" (click)="openMonthlyLimitEditDialog(limit)">
         <mat-icon>edit</mat-icon>
+      </td>
+      <td class="cursor-pointer" (click)="deleteLimit(limit)">
+        <mat-icon>delete</mat-icon>
       </td>
     </tr>
   </tbody>

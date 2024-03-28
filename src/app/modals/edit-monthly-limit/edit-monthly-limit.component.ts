@@ -33,7 +33,7 @@ export class EditMonthlyLimitComponent {
           next: () => {
             this.dialogRef.close();
             this.notificationService.showNotification(
-              'Adresa a fost actualizată!',
+              'Limita a fost actualizata si resetata!',
               'success' // Presupun că vrei să arăți notificarea ca fiind una de succes, nu de eroare.
             );
           },

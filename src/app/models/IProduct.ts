@@ -11,6 +11,7 @@ export interface IProduct {
   internalClientCod: string;
   category: string;
   stoc: number;
+  limit: number;
 }
 export interface IProductPayload {
   name: string;

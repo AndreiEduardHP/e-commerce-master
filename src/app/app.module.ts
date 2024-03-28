@@ -46,6 +46,7 @@ import { ProducatoriComponent } from './components/producatori/producatori.compo
 import { UpdateStatusFurnizorComponent } from './modals/update-status-furnizor/update-status-furnizor.component';
 import { MonthlyLimitComponent } from './components/monthly-limit/monthly-limit.component';
 import { EditMonthlyLimitComponent } from './modals/edit-monthly-limit/edit-monthly-limit.component';
+import { DeleteMonthlyLimitComponent } from './modals/delete-monthly-limit/delete-monthly-limit.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { EditMonthlyLimitComponent } from './modals/edit-monthly-limit/edit-mont
     UpdateStatusFurnizorComponent,
     MonthlyLimitComponent,
     EditMonthlyLimitComponent,
+    DeleteMonthlyLimitComponent,
   ],
   imports: [
     BrowserModule,

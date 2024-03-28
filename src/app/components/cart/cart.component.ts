@@ -4,6 +4,8 @@ import { IProduct } from 'src/app/models/IProduct';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ChangeComponentService } from 'src/app/services/change-component.service';
+import { MonthlyLimitService } from 'src/app/services/monthly-limit.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +19,9 @@ export class CartComponent {
   constructor(
     private cartService: CartService,
     private authService: AuthService,
-    private componentControlService: ChangeComponentService
+    private componentControlService: ChangeComponentService,
+    private monthlyLimitService: MonthlyLimitService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -35,7 +39,24 @@ export class CartComponent {
     this.count = this.cartService.getItems().length;
   }
   increaseQuantity(product: IProduct) {
-    this.cartService.addToCart(product);
+    this.monthlyLimitService.getLimitsForUser(2).subscribe((limits) => {
+      const productLimit = limits.find(
+        (limit) => limit.productId === product.id
+      );
+      if (productLimit) {
+        const currentQuantity = this.cartService.getProductQuantity(product.id);
+        if (currentQuantity < productLimit.limit) {
+          this.cartService.addToCart(product);
+        } else {
+          this.notificationService.showNotification(
+            `Limita pentru produsul ${product.name} a fost atinsă.`,
+            'error'
+          );
+        }
+      } else {
+        this.cartService.addToCart(product);
+      }
+    });
   }
 
   decreaseQuantity(product: IProduct) {

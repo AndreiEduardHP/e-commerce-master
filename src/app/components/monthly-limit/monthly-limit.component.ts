@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DeleteMonthlyLimitComponent } from 'src/app/modals/delete-monthly-limit/delete-monthly-limit.component';
 import { EditMonthlyLimitComponent } from 'src/app/modals/edit-monthly-limit/edit-monthly-limit.component';
 import { ILoggedUser } from 'src/app/models/ILoggedUser';
 import { IProduct } from 'src/app/models/IProduct';
@@ -90,6 +91,16 @@ export class MonthlyLimitComponent implements OnInit {
     this.monthlyLimitSerivce.getLimits().subscribe(
       (data) => {
         this.userProductLimits = data;
+        const matchingProducts = [];
+
+        for (let item of data) {
+          if (item.userId === this.currentUserId) {
+            matchingProducts.push({
+              productId: item.productId,
+              limit: item.limit,
+            });
+          }
+        }
       },
       (error) => {
         console.error('There was an error retrieving the limits', error);
@@ -98,6 +109,16 @@ export class MonthlyLimitComponent implements OnInit {
   }
   openMonthlyLimitEditDialog(limit: IUserProductLimit) {
     const dialogRef = this.dialog.open(EditMonthlyLimitComponent, {
+      width: '650px',
+      data: limit,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.getLimits();
+    });
+  }
+  deleteLimit(limit: IUserProductLimit) {
+    const dialogRef = this.dialog.open(DeleteMonthlyLimitComponent, {
       width: '650px',
       data: limit,
     });
